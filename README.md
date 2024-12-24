@@ -1,4 +1,4 @@
-# fzyf.nvim
+![fzyf.nvim example](./doc/ex.png)
 
 fast and minimal as fuck neovim fuzzy finder that using fzy under the hood.
 
