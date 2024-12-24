@@ -2,8 +2,6 @@
 
 fast and simple as fuck neovim fuzzy finder that using fzy under the hood.
 
-![fzyf example](./doc/ex.gif)
-
 ## installation
 
 any plugin manager that you like
