@@ -1,6 +1,6 @@
 # fzyf.nvim
 
-fast and simple as fuck neovim fuzzy finder that using fzy under the hood.
+fast and minimal as fuck neovim fuzzy finder that using fzy under the hood.
 
 ## installation
 
