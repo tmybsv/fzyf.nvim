@@ -36,7 +36,7 @@ end
 local M = {}
 
 function M.setup()
-	vim.api.nvim_create_user_command("Fzy", function() find() end, {})
+	vim.api.nvim_create_user_command("Fzyf", function() find() end, {})
 end
 
 return M
