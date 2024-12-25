@@ -1,6 +1,6 @@
 ![fzyf.nvim example](./doc/ex.png)
 
-fast and minimal as fuck neovim fuzzy finder that using fzy under the hood.
+fast and minimal as fuck neovim fuzzy finder that using fzy under the hood
 
 ## installation
 
@@ -24,6 +24,6 @@ return {
 
 ```lua
 local fzyf = require("fzyf")
-vim.keymap.set("n", "<leader>ff", ":FzyfFindFile<CR>", { silent = true })
-vim.keymap.set("n", "<leader>fl", ":FzyfLiveGrep<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ff", ":FzyfFindFile<CR>", { silent = true }),
+vim.keymap.set("n", "<leader>fl", ":FzyfLiveGrep<CR>", { silent = true }),
 ```
