@@ -16,11 +16,28 @@ local function spawnfloat()
 	)
 end
 
-local function find()
+local function findfile()
 	spawnfloat()
 	vim.api.nvim_command("startinsert")
 	local tempf = vim.fn.tempname()
-	vim.fn.termopen('fd . | fzy > ' .. tempf, {
+	vim.fn.termopen("fd . | fzy -l25 > " .. tempf, {
+		on_exit = function()
+			vim.api.nvim_command("bd!")
+			local f = io.open(tempf, "r")
+			if f == nil then
+				return
+			end
+			local stdout = f:read("l")
+			vim.api.nvim_command("e " .. stdout)
+		end
+	})
+end
+
+local function livegrep()
+	spawnfloat()
+	vim.api.nvim_command("startinsert")
+	local tempf = vim.fn.tempname()
+	vim.fn.termopen("rg -i --vimgrep . | awk -F\":\" \"!seen[$1\":\"$2]++\" | fzy -l25 | awk -F":\" \"{print \"+\"$2, $1}\" > " .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
 			local f = io.open(tempf, "r")
@@ -36,7 +53,8 @@ end
 local M = {}
 
 function M.setup()
-	vim.api.nvim_create_user_command("Fzyf", function() find() end, {})
+	vim.api.nvim_create_user_command("FzyfFindFile", function() findfile() end, {})
+	vim.api.nvim_create_user_command("FzyfLiveGrep", function() livegrep() end, {})
 end
 
 return M
