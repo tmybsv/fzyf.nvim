@@ -37,7 +37,7 @@ local function livegrep()
 	spawnfloat()
 	vim.api.nvim_command("startinsert")
 	local tempf = vim.fn.tempname()
-	vim.fn.termopen("rg -i --vimgrep . | awk -F\":\" \"!seen[$1\":\"$2]++\" | fzy -l25 | awk -F":\" \"{print \"+\"$2, $1}\" > " .. tempf, {
+	vim.fn.termopen("rg -i --vimgrep . | awk -F\":\" \"!seen[$1\":\"$2]++\" | fzy -l25 | awk -F\":\" \"{print \"+\"$2, $1}\" > " .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
 			local f = io.open(tempf, "r")
