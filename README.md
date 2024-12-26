@@ -24,6 +24,8 @@ return {
 
 ```lua
 local fzyf = require("fzyf")
-vim.keymap.set("n", "<leader>ff", ":FzyfFindFile<CR>", { silent = true })
-vim.keymap.set("n", "<leader>fl", ":FzyfLiveGrep<CR>", { silent = true })
+fzyf.setup({
+    vim.keymap.set("n", "<leader>ff", ":FzyfFindFile<CR>", { silent = true }),
+    vim.keymap.set("n", "<leader>fl", ":FzyfLiveGrep<CR>", { silent = true }),
+})
 ```
