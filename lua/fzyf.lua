@@ -20,7 +20,8 @@ local function findfile()
 	spawnfloat()
 	vim.api.nvim_command("startinsert")
 	local tempf = vim.fn.tempname()
-	vim.fn.termopen("fd . | fzy -l25 > " .. tempf, {
+	local cmd = "fd -tf -cnever . | fzy -l" .. vim.o.lines-5
+	vim.fn.termopen(cmd .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
 			local f = io.open(tempf, "r")
