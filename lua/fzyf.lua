@@ -35,7 +35,7 @@ local function lookupcfg()
 	vim.api.nvim_command("startinsert")
 	local tempf = vim.fn.tempname()
 	local cfgdir = vim.fn.stdpath("config")
-	local cmd = "fd -tf -cnever " .. cfgdir .. " | fzy -l" .. vim.o.lines - 10 .. " > "
+	local cmd = "fd -tf -cnever . " .. cfgdir .. " | fzy -l" .. vim.o.lines - 10 .. " > "
 	vim.fn.termopen(cmd .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
