@@ -30,6 +30,25 @@ local function findfile()
 	})
 end
 
+local function lookupcfg()
+	spawnfloat()
+	vim.api.nvim_command("startinsert")
+	local tempf = vim.fn.tempname()
+	local cfgdir = vim.fn.stdpath("config")
+	local cmd = "fd -tf -cnever " .. cfgdir .. " | fzy -l" .. vim.o.lines - 10 .. " > "
+	vim.fn.termopen(cmd .. tempf, {
+		on_exit = function()
+			vim.api.nvim_command("bd!")
+			local f = io.open(tempf, "r")
+			if f == nil then
+				return
+			end
+			local stdout = f:read("l")
+			vim.api.nvim_command("e " .. stdout)
+		end,
+	})
+end
+
 local function livegrep()
 	spawnfloat()
 	vim.api.nvim_command("startinsert")
@@ -57,6 +76,9 @@ function M.setup()
 	end, {})
 	vim.api.nvim_create_user_command("FzyfLiveGrep", function()
 		livegrep()
+	end, {})
+	vim.api.nvim_create_user_command("FzyfLookupConfig", function()
+		lookupcfg()
 	end, {})
 end
 
