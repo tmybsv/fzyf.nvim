@@ -11,12 +11,12 @@ e.g. using [lazy.nvim](https://github.com/folke/lazy.nvim)
 ```lua
 -- if init.lua
 {
-	"mishkafreddy2009/fzyf.nvim",
+	"tmybsv/fzyf.nvim",
 }
 
 -- if plugins/fzyf.lua
 return {
-	"mishkafreddy2009/fzyf.nvim",
+	"tmybsv/fzyf.nvim",
 }
 ```
 
