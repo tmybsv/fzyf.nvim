@@ -1,7 +1,7 @@
 --- @param cmd string
 --- @param tempf string
 local function open_terminal(cmd, tempf)
-	local status = vim.fn.jobstart(cmd .. tempf, {
+	local status = vim.fn.termopen(cmd .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
 			local f = io.open(tempf, "r")
