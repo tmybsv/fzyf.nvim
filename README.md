@@ -2,6 +2,12 @@
 
 fast and minimal as fuck neovim fuzzy finder that using fzy under the hood
 
+## dependencies
+
+- fzy
+- ripgrep
+- fd
+
 ## installation
 
 any plugin manager that you like
