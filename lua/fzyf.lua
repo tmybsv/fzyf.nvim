@@ -1,44 +1,33 @@
 --- @param cmd string
 --- @param tempf string
 local function open_terminal(cmd, tempf)
-	local status = vim.fn.termopen(cmd .. " > " .. vim.fn.shellescape(tempf), {
+	local status = vim.fn.termopen(cmd .. tempf, {
 		on_exit = function()
 			vim.api.nvim_command("bd!")
 			local f = io.open(tempf, "r")
-			if not f then return end
-			local out = f:read("*l")
-			f:close()
-			pcall(vim.loop.fs_unlink, tempf)
-			if not out or out == "" then return end
-			local lnum, file = out:match("^%+(%d+)%s+(.+)$")
-			if file then
-				vim.cmd(string.format("edit +%s %s", lnum, vim.fn.fnameescape(file)))
-			else
-				vim.cmd("edit " .. vim.fn.fnameescape(out))
+			if f == nil then
+				return
 			end
+			local stdout = f:read("l")
+			vim.api.nvim_command("e " .. stdout)
 		end,
 	})
-	if not status or status <= 0 then
-		error("termopen failed")
+	if status == -1 or status == 0 then
+		error("failed to open terminal")
 	end
 end
 
 -- TODO: implement window configuration
 local function spawn_float()
-	local cols, lines = vim.o.columns, vim.o.lines
-	local width = math.max(40, cols - 30)
-	local height = math.max(10, lines - 10)
-	local buf = vim.api.nvim_create_buf(false, true)
-	vim.bo[buf].bufhidden = "wipe"
-	vim.bo[buf].swapfile = false
-	vim.api.nvim_open_win(buf, true, {
+	local width = vim.o.columns - 30
+	local height = vim.o.lines - 10
+	vim.api.nvim_open_win(vim.api.nvim_create_buf(false, true), true, {
 		relative = "editor",
 		style = "minimal",
 		width = width,
 		height = height,
-		col = math.floor((cols - width) / 2),
-		row = math.floor((lines - height) / 2),
-		border = "none",
+		col = math.min((vim.o.columns - width) / 2),
+		row = math.min((vim.o.lines - height) / 2),
 	})
 end
 
